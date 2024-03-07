@@ -6,8 +6,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableDoubleStateOf
-import androidx.compose.runtime.mutableFloatStateOf
-import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.withFrameMillis
@@ -18,11 +16,11 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.geometry.center
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import info.degirona.mmartos.calcElapsedTime
 import kotlinx.coroutines.isActive
 import kotlin.math.cos
 import kotlin.math.roundToInt
 import kotlin.math.sin
-import kotlin.time.DurationUnit
 
 @Composable
 fun GridBackground(
@@ -32,7 +30,7 @@ fun GridBackground(
     LaunchedEffect(Unit) {
         while (isActive) {
             withFrameMillis {
-                elapsedTime += it.toDouble() / 100_000_000_000
+                elapsedTime = calcElapsedTime(elapsedTime, it)
             }
         }
     }
@@ -41,7 +39,7 @@ fun GridBackground(
         modifier = modifier
             .fillMaxSize()
     ) {
-        val maxCols = 15
+        val maxCols = 25
         val rectAspectRatio = 16f / 9f
         val rectWidth = size.width / maxCols
         val rectHeight = rectWidth / rectAspectRatio

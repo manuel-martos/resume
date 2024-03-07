@@ -1,9 +1,4 @@
 package info.degirona.mmartos
 
-import info.degirona.mmartos.Platform
-
-class WasmPlatform: Platform {
-    override val name: String = "Web with Kotlin/Wasm"
-}
-
-actual fun getPlatform(): Platform = WasmPlatform()
+actual fun calcElapsedTime(prevElapsedTime: Double, frameMillis: Long): Double =
+    frameMillis.toDouble() / 1_000

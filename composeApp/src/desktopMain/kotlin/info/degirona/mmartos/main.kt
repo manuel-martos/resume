@@ -7,13 +7,17 @@ import androidx.compose.foundation.window.WindowDraggableArea
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
+import androidx.compose.ui.window.rememberWindowState
 import info.degirona.mmartos.ui.App
 
 fun main() = application {
+    val windowState = rememberWindowState(size = DpSize(1920.dp, 1080.dp))
     Window(
+        state = windowState,
         onCloseRequest = ::exitApplication,
         title = "Manel Martos - Resume",
         undecorated = true,

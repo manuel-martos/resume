@@ -1,19 +1,10 @@
 package info.degirona.mmartos.ui
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Arrangement.Absolute.spacedBy
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -22,19 +13,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.dp
 import info.degirona.mmartos.modifiers.vignette
-import org.jetbrains.compose.resources.ExperimentalResourceApi
-import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
-import resume.composeapp.generated.resources.Res
-import resume.composeapp.generated.resources.github_profile
+import kotlin.math.max
+import kotlin.math.min
 
-@OptIn(ExperimentalResourceApi::class)
 @Composable
 @Preview
 fun App() {
@@ -64,56 +50,17 @@ fun App() {
                                 val halfWidth = size.width / 2f
                                 val halfHeight = size.height / 2f
                                 rotationValueY =
-                                    20f * (firstPosition.x - halfWidth) / size.width.toFloat()
+                                    max(-10f, min(10f * (firstPosition.x - halfWidth) / size.width.toFloat(), 10f))
                                 rotationValueX =
-                                    20f * (firstPosition.y - halfHeight) / size.height.toFloat()
+                                    max(-10f, min(10f * (firstPosition.y - halfHeight) / size.height.toFloat(), 10f))
                             }
                         }
                     }
                     .padding(16.dp)
             ) {
-                GridBackground(
-                    modifier = Modifier
-                        .fillMaxSize()
+                Cover(
+                    modifier = Modifier.fillMaxSize()
                 )
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = spacedBy(16.dp),
-                ) {
-                    OutlinedCard(
-                        onClick = {},
-                        modifier = Modifier.shadow(16.dp)
-                    ) {
-                        Column(
-                            verticalArrangement = spacedBy(4.dp),
-                            modifier = Modifier.padding(16.dp),
-                        ) {
-                            Image(
-                                painter = painterResource(Res.drawable.github_profile),
-                                contentDescription = null,
-                                modifier = Modifier
-                                    .size(64.dp)
-                                    .clip(CircleShape)
-                                    .border(
-                                        1.dp,
-                                        MaterialTheme.colorScheme.onPrimaryContainer,
-                                        CircleShape
-                                    )
-                            )
-                            Text(
-                                text = "Manel Martos",
-                                style = MaterialTheme.typography.headlineMedium
-                            )
-                            Text(
-                                text = "Lead Android Engineer",
-                                style = MaterialTheme.typography.titleMedium
-                            )
-                        }
-                    }
-                    Button(onClick = { }) {
-                        Text(text = "Read more", style = MaterialTheme.typography.bodyLarge)
-                    }
-                }
             }
         }
     }
