@@ -23,6 +23,8 @@ jobs:
           :compose:wasmJsBrowserDistribution
       - name: Commit and push
         run: |
+          git config user.email "mmartos@degirona.info"
+          git config user.name "Manuel Martos Roldán"
           git checkout --orphan gh-pages
           git add -f composeApp/build/dist/wasmJs/productionExecutable/*
           git mv composeApp/build/dist/wasmJs/productionExecutable/* .
