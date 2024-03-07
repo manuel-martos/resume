@@ -1,3 +1,7 @@
+package info.degirona.mmartos
+
+import info.degirona.mmartos.Platform
+
 class JVMPlatform: Platform {
     override val name: String = "Java ${System.getProperty("java.version")}"
 }

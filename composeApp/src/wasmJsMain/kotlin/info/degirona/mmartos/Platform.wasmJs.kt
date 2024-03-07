@@ -1,3 +1,7 @@
+package info.degirona.mmartos
+
+import info.degirona.mmartos.Platform
+
 class WasmPlatform: Platform {
     override val name: String = "Web with Kotlin/Wasm"
 }

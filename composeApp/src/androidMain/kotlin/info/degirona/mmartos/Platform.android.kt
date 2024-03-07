@@ -1,3 +1,5 @@
+package info.degirona.mmartos
+
 import android.os.Build
 
 class AndroidPlatform : Platform {

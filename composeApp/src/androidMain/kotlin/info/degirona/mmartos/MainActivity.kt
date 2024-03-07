@@ -1,6 +1,6 @@
 package info.degirona.mmartos
 
-import App
+import info.degirona.mmartos.ui.App
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent

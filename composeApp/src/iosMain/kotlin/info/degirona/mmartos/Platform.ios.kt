@@ -1,3 +1,6 @@
+package info.degirona.mmartos
+
+import info.degirona.mmartos.Platform
 import platform.UIKit.UIDevice
 
 class IOSPlatform: Platform {
