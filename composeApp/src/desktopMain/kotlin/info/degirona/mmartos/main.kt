@@ -1,8 +1,10 @@
 package info.degirona.mmartos
 
+import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.window.WindowDraggableArea
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
@@ -25,4 +27,10 @@ fun main() = application {
             App()
         }
     }
+}
+
+@Preview
+@Composable
+fun Preview() {
+    App()
 }
