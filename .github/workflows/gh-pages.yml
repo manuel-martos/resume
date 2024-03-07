@@ -24,7 +24,7 @@ jobs:
       - name: Commit and push
         run: |
           git checkout --orphan gh-pages
-          git add composeApp/build/dist/wasmJs/productionExecutable/*
+          git add -f composeApp/build/dist/wasmJs/productionExecutable/*
           git mv composeApp/build/dist/wasmJs/productionExecutable/* .
           git commit -m "Upload gh-pages"
           git push origin gh-pages --force
