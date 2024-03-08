@@ -3,11 +3,11 @@ package info.degirona.mmartos.ui
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Arrangement.Absolute.spacedBy
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredWidth
 import androidx.compose.foundation.layout.size
@@ -22,16 +22,20 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.BiasAlignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
 import resume.composeapp.generated.resources.Res
 import resume.composeapp.generated.resources.github_profile
+import kotlin.math.roundToInt
 
 @Composable
 fun Content(
     state: State,
     onStateChanged: (State) -> Unit,
+    rotationX: Float,
+    rotationY: Float,
     modifier: Modifier = Modifier,
 ) {
     AnimatedContent(
@@ -39,12 +43,20 @@ fun Content(
     ) {
         when (it) {
             is State.Cover ->
-                Cover(modifier) {
+                Cover(
+                    rotationX = rotationX,
+                    rotationY = rotationY,
+                    modifier = modifier,
+                ) {
                     onStateChanged(State.Details)
                 }
 
             is State.Details ->
-                Details(modifier)
+                Details(
+                    rotationX = rotationX,
+                    rotationY = rotationY,
+                    modifier = modifier,
+                )
 
         }
     }
@@ -53,6 +65,8 @@ fun Content(
 @OptIn(ExperimentalResourceApi::class)
 @Composable
 fun Cover(
+    rotationX: Float,
+    rotationY: Float,
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
 ) {
@@ -67,14 +81,16 @@ fun Cover(
         )
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Absolute.spacedBy(16.dp),
+            verticalArrangement = spacedBy(16.dp),
+            modifier = Modifier
+                .offset { IntOffset((4f * rotationY).roundToInt(), -(4f * rotationX).roundToInt()) }
         ) {
             OutlinedCard(
                 onClick = onClick,
             ) {
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Absolute.spacedBy(4.dp),
+                    verticalArrangement = spacedBy(4.dp),
                     modifier = Modifier.padding(16.dp),
                 ) {
                     Image(
@@ -107,7 +123,11 @@ fun Cover(
 }
 
 @Composable
-fun Details(modifier: Modifier = Modifier) {
+fun Details(
+    rotationX: Float,
+    rotationY: Float,
+    modifier: Modifier = Modifier,
+) {
     Box(
         contentAlignment = Alignment.Center,
         modifier = modifier,
@@ -117,75 +137,82 @@ fun Details(modifier: Modifier = Modifier) {
             modifier = Modifier
                 .fillMaxSize()
         )
-        OutlinedCard(
+        Box(
             modifier = Modifier
-                .align(BiasAlignment(-0.4f, -0.4f))
-        ) {
-            Column(
-                verticalArrangement = spacedBy(4.dp),
-                modifier = Modifier
-                    .requiredWidth(320.dp)
-                    .padding(16.dp)
-            ) {
-                Text(text = "Lorem Ipsum", style = MaterialTheme.typography.titleLarge)
-                Text(
-                    text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-                    style = MaterialTheme.typography.bodyLarge
-                )
-            }
-        }
+                .fillMaxSize()
+                .offset { IntOffset((4f * rotationY).roundToInt(), -(4f * rotationX).roundToInt()) }
 
-        Card(
-            modifier = Modifier
-                .align(BiasAlignment(0.2f, -0.3f))
         ) {
-            Column(
-                verticalArrangement = spacedBy(4.dp),
+            OutlinedCard(
                 modifier = Modifier
-                    .requiredWidth(320.dp)
-                    .padding(16.dp)
+                    .align(BiasAlignment(-0.4f, -0.4f))
             ) {
-                Text(text = "Lorem Ipsum", style = MaterialTheme.typography.titleLarge)
-                Text(
-                    text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-                    style = MaterialTheme.typography.bodyLarge
-                )
+                Column(
+                    verticalArrangement = spacedBy(4.dp),
+                    modifier = Modifier
+                        .requiredWidth(320.dp)
+                        .padding(16.dp)
+                ) {
+                    Text(text = "Lorem Ipsum", style = MaterialTheme.typography.titleLarge)
+                    Text(
+                        text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                        style = MaterialTheme.typography.bodyLarge
+                    )
+                }
             }
-        }
 
-        Card(
-            modifier = Modifier
-                .align(BiasAlignment(-0.5f, 0.2f))
-        ) {
-            Column(
-                verticalArrangement = spacedBy(4.dp),
+            Card(
                 modifier = Modifier
-                    .requiredWidth(320.dp)
-                    .padding(16.dp)
+                    .align(BiasAlignment(0.2f, -0.3f))
             ) {
-                Text(text = "Lorem Ipsum", style = MaterialTheme.typography.titleLarge)
-                Text(
-                    text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-                    style = MaterialTheme.typography.bodyLarge
-                )
+                Column(
+                    verticalArrangement = spacedBy(4.dp),
+                    modifier = Modifier
+                        .requiredWidth(320.dp)
+                        .padding(16.dp)
+                ) {
+                    Text(text = "Lorem Ipsum", style = MaterialTheme.typography.titleLarge)
+                    Text(
+                        text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                        style = MaterialTheme.typography.bodyLarge
+                    )
+                }
             }
-        }
 
-        OutlinedCard(
-            modifier = Modifier
-                .align(BiasAlignment(0.25f, 0.35f))
-        ) {
-            Column(
-                verticalArrangement = spacedBy(4.dp),
+            Card(
                 modifier = Modifier
-                    .requiredWidth(320.dp)
-                    .padding(16.dp)
+                    .align(BiasAlignment(-0.5f, 0.2f))
             ) {
-                Text(text = "Lorem Ipsum", style = MaterialTheme.typography.titleLarge)
-                Text(
-                    text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-                    style = MaterialTheme.typography.bodyLarge
-                )
+                Column(
+                    verticalArrangement = spacedBy(4.dp),
+                    modifier = Modifier
+                        .requiredWidth(320.dp)
+                        .padding(16.dp)
+                ) {
+                    Text(text = "Lorem Ipsum", style = MaterialTheme.typography.titleLarge)
+                    Text(
+                        text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                        style = MaterialTheme.typography.bodyLarge
+                    )
+                }
+            }
+
+            OutlinedCard(
+                modifier = Modifier
+                    .align(BiasAlignment(0.25f, 0.35f))
+            ) {
+                Column(
+                    verticalArrangement = spacedBy(4.dp),
+                    modifier = Modifier
+                        .requiredWidth(320.dp)
+                        .padding(16.dp)
+                ) {
+                    Text(text = "Lorem Ipsum", style = MaterialTheme.typography.titleLarge)
+                    Text(
+                        text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                        style = MaterialTheme.typography.bodyLarge
+                    )
+                }
             }
         }
     }

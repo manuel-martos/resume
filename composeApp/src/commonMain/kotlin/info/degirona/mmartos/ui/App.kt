@@ -80,6 +80,8 @@ fun App() {
                 Content(
                     state = state,
                     onStateChanged = { state = it },
+                    rotationX = rotationValueX,
+                    rotationY = rotationValueY,
                     modifier = Modifier
                         .fillMaxSize()
                         .vignette(255f, 2.5f, MaterialTheme.colorScheme.background)
