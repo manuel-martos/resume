@@ -24,6 +24,7 @@ import kotlin.math.sin
 
 @Composable
 fun GridBackground(
+    hue: Float,
     modifier: Modifier = Modifier,
 ) {
     var elapsedTime by remember { mutableDoubleStateOf(0.0) }
@@ -53,7 +54,7 @@ fun GridBackground(
                 drawRoundRect(
                     color = Color
                         .hsv(
-                            hue = 216f,
+                            hue = hue,
                             saturation = 0.5f + 0.5f * sin(newRow + newCol).toFloat(),
                             value = 0.5f + 0.5f * cos(newRow - newCol).toFloat(),
                         )

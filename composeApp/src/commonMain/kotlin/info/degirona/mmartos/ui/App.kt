@@ -58,7 +58,7 @@ fun App() {
                     }
                     .padding(16.dp)
             ) {
-                Cover(
+                Content(
                     modifier = Modifier.fillMaxSize()
                 )
             }
