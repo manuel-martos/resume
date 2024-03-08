@@ -18,10 +18,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.BiasAlignment
 import androidx.compose.ui.Modifier
@@ -32,22 +28,19 @@ import org.jetbrains.compose.resources.painterResource
 import resume.composeapp.generated.resources.Res
 import resume.composeapp.generated.resources.github_profile
 
-sealed interface State {
-    data object Cover : State
-    data object Details : State
-}
-
 @Composable
-fun Content(modifier: Modifier = Modifier) {
-    var state by remember { mutableStateOf<State>(State.Cover) }
-
+fun Content(
+    state: State,
+    onStateChanged: (State) -> Unit,
+    modifier: Modifier = Modifier,
+) {
     AnimatedContent(
         state
     ) {
         when (it) {
             is State.Cover ->
                 Cover(modifier) {
-                    state = State.Details
+                    onStateChanged(State.Details)
                 }
 
             is State.Details ->
