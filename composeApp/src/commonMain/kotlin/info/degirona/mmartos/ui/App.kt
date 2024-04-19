@@ -6,6 +6,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import info.degirona.mmartos.models.myResumeModel
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
@@ -19,6 +20,7 @@ fun App() {
                 .fillMaxSize()
         ) {
             ResumeScreen(
+                resumeModel = myResumeModel,
                 modifier = Modifier.fillMaxSize()
             )
         }
