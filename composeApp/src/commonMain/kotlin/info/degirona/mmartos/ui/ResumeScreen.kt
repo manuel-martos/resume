@@ -23,34 +23,46 @@ import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
-import info.degirona.mmartos.models.State
+import info.degirona.mmartos.models.Page
+import info.degirona.mmartos.models.Page.Cover
+import info.degirona.mmartos.models.Page.Details
+import info.degirona.mmartos.models.ResumeModel
+import info.degirona.mmartos.models.ViewModel
 import info.degirona.mmartos.modifiers.relativePointerPosition
 import info.degirona.mmartos.modifiers.vignette
 import kotlin.math.roundToInt
 
 @Composable
 fun ResumeScreen(
+    resumeModel: ResumeModel,
     modifier: Modifier = Modifier,
 ) {
+    var viewModel by remember {
+        mutableStateOf(
+            ViewModel(
+                resumeModel = resumeModel,
+                activePage = Cover
+            )
+        )
+    }
     Box(
         contentAlignment = Alignment.Center,
         modifier = modifier
     ) {
-        var state by remember { mutableStateOf<State>(State.Cover) }
         Content(
-            state = state,
-            onUpdateState = { state = it },
+            viewModel = viewModel,
+            onUpdateActivePage = { viewModel = viewModel.copy(activePage = it) },
             modifier = Modifier.fillMaxSize(),
         )
         IconButton(
-            onClick = { state = State.Cover },
+            onClick = { viewModel = viewModel.copy(activePage = Cover) },
             modifier = Modifier
                 .align(Alignment.TopStart)
                 .scale(1.5f)
                 .padding(top = 32.dp, start = 32.dp)
         ) {
             Icon(
-                imageVector = if (state == State.Cover) Icons.Outlined.Home else Icons.AutoMirrored.Outlined.ArrowBack,
+                imageVector = if (viewModel.activePage == Cover) Icons.Outlined.Home else Icons.AutoMirrored.Outlined.ArrowBack,
                 contentDescription = "Back",
             )
         }
@@ -59,14 +71,14 @@ fun ResumeScreen(
 
 @Composable
 private fun Content(
-    state: State,
-    onUpdateState: (State) -> Unit,
+    viewModel: ViewModel,
+    onUpdateActivePage: (Page) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     var relativeX by remember { mutableFloatStateOf(0f) }
     var relativeY by remember { mutableFloatStateOf(0f) }
     AnimatedContent(
-        targetState = state,
+        targetState = viewModel.activePage,
         modifier = modifier
             .fillMaxSize()
             .vignette(256f, 1.25f, MaterialTheme.colorScheme.background)
@@ -81,16 +93,22 @@ private fun Content(
             }
     ) {
         when (it) {
-            is State.Cover ->
+            is Cover ->
                 Container(
                     backgroundHue = 220f,
                     relativeX = relativeX,
                     relativeY = relativeY,
-                    block = { Cover(modifier = Modifier.fillMaxSize()) { onUpdateState(State.Details) } },
+                    block = {
+                        Cover(
+                            resumeModel = viewModel.resumeModel,
+                            modifier = Modifier.fillMaxSize(),
+                            onClick = { onUpdateActivePage(Details) },
+                        )
+                    },
                     modifier = Modifier.fillMaxSize(),
                 )
 
-            is State.Details ->
+            is Details ->
                 Container(
                     backgroundHue = 40f,
                     relativeX = relativeX,
