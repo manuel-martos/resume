@@ -21,6 +21,7 @@ fun App() {
         ) {
             ResumeScreen(
                 resumeModel = myResumeModel,
+                uiSpecs = getUiSpecs(),
                 modifier = Modifier.fillMaxSize()
             )
         }

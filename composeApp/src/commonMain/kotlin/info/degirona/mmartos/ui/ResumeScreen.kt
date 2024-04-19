@@ -35,6 +35,7 @@ import kotlin.math.roundToInt
 @Composable
 fun ResumeScreen(
     resumeModel: ResumeModel,
+    uiSpecs: UiSpecs,
     modifier: Modifier = Modifier,
 ) {
     var viewModel by remember {
@@ -51,6 +52,7 @@ fun ResumeScreen(
     ) {
         Content(
             viewModel = viewModel,
+            uiSpecs = uiSpecs,
             onUpdateActivePage = { viewModel = viewModel.copy(activePage = it) },
             modifier = Modifier.fillMaxSize(),
         )
@@ -58,8 +60,8 @@ fun ResumeScreen(
             onClick = { viewModel = viewModel.copy(activePage = Cover) },
             modifier = Modifier
                 .align(Alignment.TopStart)
-                .scale(1.5f)
-                .padding(top = 32.dp, start = 32.dp)
+                .scale(uiSpecs.topLeftIconScale)
+                .padding(uiSpecs.topLeftIconPadding)
         ) {
             Icon(
                 imageVector = if (viewModel.activePage == Cover) Icons.Outlined.Home else Icons.AutoMirrored.Outlined.ArrowBack,
@@ -72,6 +74,7 @@ fun ResumeScreen(
 @Composable
 private fun Content(
     viewModel: ViewModel,
+    uiSpecs: UiSpecs,
     onUpdateActivePage: (Page) -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -98,9 +101,11 @@ private fun Content(
                     backgroundHue = 220f,
                     relativeX = relativeX,
                     relativeY = relativeY,
+                    uiSpecs = uiSpecs,
                     block = {
                         Cover(
                             resumeModel = viewModel.resumeModel,
+                            uiSpecs = uiSpecs,
                             modifier = Modifier.fillMaxSize(),
                             onClick = { onUpdateActivePage(Details) },
                         )
@@ -113,6 +118,7 @@ private fun Content(
                     backgroundHue = 40f,
                     relativeX = relativeX,
                     relativeY = relativeY,
+                    uiSpecs = uiSpecs,
                     block = { Details(modifier = Modifier.fillMaxSize()) },
                     modifier = Modifier.fillMaxSize(),
                 )
@@ -125,6 +131,7 @@ private fun Container(
     backgroundHue: Float,
     relativeX: Float,
     relativeY: Float,
+    uiSpecs: UiSpecs,
     modifier: Modifier = Modifier,
     block: @Composable () -> Unit,
 ) {
@@ -132,6 +139,7 @@ private fun Container(
         modifier = modifier
     ) {
         GridBackground(
+            maxCols = uiSpecs.backgroundMaxColumns,
             hue = backgroundHue,
             modifier = Modifier
                 .fillMaxSize()
