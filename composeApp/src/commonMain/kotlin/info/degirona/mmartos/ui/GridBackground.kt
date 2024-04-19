@@ -16,22 +16,25 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.geometry.center
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import info.degirona.mmartos.calcElapsedTime
 import kotlinx.coroutines.isActive
 import kotlin.math.cos
 import kotlin.math.roundToInt
 import kotlin.math.sin
+import kotlin.time.DurationUnit
+import kotlin.time.TimeSource
 
 @Composable
 fun GridBackground(
+    maxCols: Int,
     hue: Float,
     modifier: Modifier = Modifier,
 ) {
     var elapsedTime by remember { mutableDoubleStateOf(0.0) }
     LaunchedEffect(Unit) {
+        val clock = TimeSource.Monotonic.markNow()
         while (isActive) {
             withFrameMillis {
-                elapsedTime = calcElapsedTime(elapsedTime, it)
+                elapsedTime = clock.elapsedNow().toDouble(DurationUnit.SECONDS)
             }
         }
     }
@@ -40,7 +43,6 @@ fun GridBackground(
         modifier = modifier
             .fillMaxSize()
     ) {
-        val maxCols = 25
         val rectAspectRatio = 16f / 9f
         val rectWidth = size.width / maxCols
         val rectHeight = rectWidth / rectAspectRatio
