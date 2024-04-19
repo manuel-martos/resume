@@ -30,6 +30,7 @@ import resume.composeapp.generated.resources.github_profile
 @Composable
 fun Cover(
     resumeModel: ResumeModel,
+    uiSpecs: UiSpecs,
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
 ) {
@@ -50,7 +51,7 @@ fun Cover(
                     painter = painterResource(Res.drawable.github_profile),
                     contentDescription = null,
                     modifier = Modifier
-                        .size(128.dp)
+                        .size(uiSpecs.profilePictureSize)
                         .clip(CircleShape)
                         .border(
                             width = 4.dp,
