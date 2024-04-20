@@ -1,0 +1,28 @@
+body {
+    background: rgba(0, 0 , 0, 255);
+}
+
+.loader {
+    width: 48px;
+    height: 48px;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border: 5px solid rgba(255, 255, 255, 255);
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    animation: rotation 1s linear 1s infinite;
+    visibility: hidden;
+    margin: auto;
+}
+
+@keyframes rotation {
+    0% {
+        visibility: visible;
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
