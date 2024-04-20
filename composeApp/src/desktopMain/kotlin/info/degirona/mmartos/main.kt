@@ -10,12 +10,13 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
+import androidx.compose.ui.window.WindowPosition
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
 import info.degirona.mmartos.ui.App
 
 fun main() = application {
-    val windowState = rememberWindowState(size = DpSize(1920.dp, 1080.dp))
+    val windowState = rememberWindowState(size = DpSize(1920.dp, 1080.dp), position = WindowPosition.Absolute(0.dp, 0.dp))
     Window(
         state = windowState,
         onCloseRequest = ::exitApplication,
@@ -28,7 +29,7 @@ fun main() = application {
                 .fillMaxSize()
                 .clip(RoundedCornerShape(10.dp))
         ) {
-            App()
+            App(modifier = Modifier.fillMaxSize())
         }
     }
 }
@@ -36,5 +37,5 @@ fun main() = application {
 @Preview
 @Composable
 fun Preview() {
-    App()
+    App(modifier = Modifier.fillMaxSize())
 }
