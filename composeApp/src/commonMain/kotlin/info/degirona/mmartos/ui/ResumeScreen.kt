@@ -22,7 +22,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.IntOffset
-import androidx.compose.ui.unit.dp
 import info.degirona.mmartos.models.Page
 import info.degirona.mmartos.models.Page.Cover
 import info.degirona.mmartos.models.Page.Details
@@ -83,7 +82,6 @@ private fun Content(
     AnimatedContent(
         targetState = viewModel.activePage,
         modifier = modifier
-            .fillMaxSize()
             .vignette(256f, 1.25f, MaterialTheme.colorScheme.background)
             .relativePointerPosition(Unit) { newRelativeX, newRelativeY ->
                 relativeX = newRelativeX

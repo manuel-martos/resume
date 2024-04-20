@@ -11,18 +11,19 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 @Preview
-fun App() {
+fun App(
+    modifier: Modifier = Modifier
+) {
     MaterialTheme(
         colorScheme = darkColorScheme()
     ) {
         Surface(
-            modifier = Modifier
-                .fillMaxSize()
+            modifier = modifier,
         ) {
             ResumeScreen(
                 resumeModel = myResumeModel,
                 uiSpecs = getUiSpecs(),
-                modifier = Modifier.fillMaxSize()
+                modifier = modifier.fillMaxSize()
             )
         }
     }

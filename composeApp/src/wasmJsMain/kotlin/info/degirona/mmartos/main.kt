@@ -1,6 +1,8 @@
 package info.degirona.mmartos
 
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.ui.ExperimentalComposeUiApi
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.window.CanvasBasedWindow
 import info.degirona.mmartos.ui.App
 import kotlinx.browser.document
@@ -10,9 +12,9 @@ external fun onWasmReady(onReady: () -> Unit)
 
 @OptIn(ExperimentalComposeUiApi::class)
 fun main() {
-    onWasmReady() {
+    onWasmReady {
         CanvasBasedWindow(canvasElementId = "ComposeTarget") {
-            App()
+            App(modifier = Modifier.fillMaxSize())
             removeLoader()
         }
     }

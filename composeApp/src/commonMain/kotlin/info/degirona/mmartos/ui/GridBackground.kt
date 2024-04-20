@@ -41,7 +41,6 @@ fun GridBackground(
 
     Canvas(
         modifier = modifier
-            .fillMaxSize()
     ) {
         val rectAspectRatio = 16f / 9f
         val rectWidth = size.width / maxCols
