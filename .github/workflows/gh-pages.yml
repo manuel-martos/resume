@@ -13,12 +13,12 @@ jobs:
       - uses: actions/checkout@v4
         with:
           token: ${{ secrets.RESUME_TOKEN }}
-      - uses: actions/setup-java@v3
+      - uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
           java-version: '17'
-      - uses: gradle/wrapper-validation-action@v1
-      - uses: gradle/gradle-build-action@v2
+      - uses: gradle/wrapper-validation-action@v3
+      - uses: gradle/gradle-build-action@v3
         with:
           cache-read-only: ${{ env.MAIN_BRANCH != 'true' }}
       - name: Build
