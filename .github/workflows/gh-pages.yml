@@ -24,13 +24,13 @@ jobs:
       - name: Build
         run: >
           ./gradlew
-          :compose:jsBrowserDistribution
+          :compose:wasmJsBrowserDistribution
       - name: Commit and push
         run: |
           git config user.email "mmartos@degirona.info"
           git config user.name "Manuel Martos Roldán"
           git checkout --orphan gh-pages
           git reset --hard
-          git --work-tree=composeApp/build/dist/js/productionExecutable add .
+          git --work-tree=composeApp/build/dist/wasmJs/productionExecutable add .
           git commit -m "Upload gh-pages"
           git push origin gh-pages --force

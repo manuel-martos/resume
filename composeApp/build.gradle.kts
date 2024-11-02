@@ -26,12 +26,6 @@ kotlin {
         binaries.executable()
     }
 
-    js {
-        moduleName = "composeApp-js"
-        browser()
-        binaries.executable()
-    }
-
     androidTarget {
         compilations.all {
             kotlinOptions {
